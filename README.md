@@ -45,9 +45,13 @@ user = $db.users.first(:tv => 'tull')
 user = $db.users.get(:food => 'healthy').first
 
 # Last
+$db.users.last
+$db.users.last(:sun => 'close')
 $db.users.get(:sun => 'close').last
 
 # Count
+$db.users.count
+$db.users.count(:life => 'humancentric')
 $db.users.get(:life => 'humancentric').count
 
 # All
