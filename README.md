@@ -35,7 +35,7 @@ user[:hello] => 'Wake up'
 user.has_key?(:name) => true
 
 # All these methods work on the document
-[BSON::Document API](http://www.rubydoc.info/github/mongodb/bson-ruby/master/BSON/Document)
+http://www.rubydoc.info/github/mongodb/bson-ruby/master/BSON/Document
 
 # Very flexible, also works like this for last and count
 user = $db.users.first
@@ -66,8 +66,8 @@ result.bson_id => BSON::ObjectId('596675a40aec08bfe7271e14')
 result.ok? => true
 result.n => 1
 
-# All these methods work on the result
-[Mongo::Operation::Write::Update::Result API](http://api.mongodb.com/ruby/current/Mongo/Operation/Write/Update/Result.html)
+# All these methods work on the result:
+http://api.mongodb.com/ruby/current/Mongo/Operation/Write/Update/Result.html
 
 # Delete
 $db.users.rm(id)
