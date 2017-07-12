@@ -17,7 +17,7 @@ or add to Gemfile.
 # https://docs.mongodb.com/ruby-driver/master/quick-start
 
 # Connect
-$db = EasyMongo::Query.new(['127.0.0.1:27017'], :database => "easymongo_#{ENV['RACK_ENV']}")
+$db = Easymongo::Query.new(['127.0.0.1:27017'], :database => "easymongo_#{ENV['RACK_ENV']}")
 
 # First
 $db.collection.get.first

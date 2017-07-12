@@ -23,8 +23,7 @@ module Easymongo
 
     # Set up collection, stored in the thread
     def method_missing(name, *args, &block)
-      s[:coll] = name
-      self
+      s[:coll] = name; self
     end
 
     # Set values
@@ -55,31 +54,52 @@ module Easymongo
 
     # Limit
     def limit(n)
-      s[:cursor] = cursor.limit(n.to_i); self
+      g!; s[:cursor] = cursor.limit(n.to_i); self
     end
 
     # Sort
     def sort(data)
-      s[:cursor] = cursor.sort(data); self
+      g!; s[:cursor] = cursor.sort(data); self
     end
 
     # Get first
     def first
-      Easymongo::Document.new(cursor.first)
+      g!; cursor.first.tap{|r| return ed(r) if r; c!}
     end
 
     # Get last
     def last
-      Easymongo::Document.new(cursor.sort(:$natural => -1).first)
+      g!; cursor.sort(:$natural => -1).first.tap{|r| return ed(r) if r; c!}
     end
 
     # Get all
     def all
-      cursor.to_a.map{|r| Easymongo::Document.new(r)}
+      g!; cursor.to_a.map{|r| ed(r)}.tap{ c!}
+    end
+
+    # Count
+    def count
+      g!; cursor.count.tap{ c!}
+    end
+
+    # Remove
+    def rm(data)
+
+      # Normalize data
+      data = ids(data)
+
+      # Delete doc
+      result = client[coll].delete_one(data)
+
+      # Return result
+      Easymongo::Result.new(result, data).tap{ c!}
     end
 
     # Make sure dataever passed works
     def ids(data)
+
+      # Just return if nothing to do
+      return data if data.empty?
 
       # Support passing id as string
       data = {'_id' => data} if data.is_a?(String)
@@ -93,13 +113,13 @@ module Easymongo
       # Convert ids to BSON ObjectId
       data.each{|k, v| data[k] = oid(v) if v.is_a?(String) and v =~ /^[0-9a-fA-F]{24}$/}
 
+      # Return data
       data
     end
 
     # Convert to BSON ObjectId or make a new one
     def oid(v = nil)
-      return BSON::ObjectId.new if v.nil?
-      BSON::ObjectId.from_string(v) rescue v
+      return BSON::ObjectId.new if v.nil?; BSON::ObjectId.from_string(v) rescue v
     end
 
     private
@@ -107,10 +127,20 @@ module Easymongo
     # Get the request store
     def s; RequestStore.store; end
 
+    # Clear request store
+    def c!; RequestStore.clear!; end
+
+    # Run get if no cursor
+    def g!; get unless cursor; end
+
     # Get the collection
     def coll; s[:coll]; end
 
     # Get the cursor
     def cursor; s[:cursor]; end
+
+    # Short cut for creating documents
+    def ed(r); Easymongo::Document.new(r); end
+
   end
 end

@@ -9,7 +9,7 @@ is !!$db, true
 test 'insert'
 
 result = $db.users.set(:name => 'vidar')
-id = result.upserted_id.to_s
+id = result.id
 
 is result.n, 1
 is id, :a? => String
@@ -30,15 +30,13 @@ result = $db.users.set({'id' => id}, :name => 'suong')
 is result.n, 1
 
 result = $db.users.set({:id => id}, :name => 'suong')
-puts result.inspect
-puts result.class
 is result.n, 1
 
 
 test 'find'
 
 result = $db.users.get(id).first
-is result[:name], 'suong'
+is result.name, 'suong'
 
 result = $db.users.get(:_id => id).first
 is result[:name], 'suong'
@@ -69,14 +67,27 @@ first, last = result[0], result[-1]
 test 'find first'
 
 result = $db.users.get.first
-puts result.inspect
-puts result.class
-is result[:_id].to_s, first[:_id].to_s
+is result.id, first.id
 
 test 'find last'
 
 result = $db.users.get.last
-is result[:_id].to_s, last[:_id].to_s
-
+is result.id, last.id
 
 test 'delete'
+
+id = $db.users.set(:name => 'del').id
+result = $db.users.rm(id)
+
+is result.n, 1
+
+r = $db.users.get(id).first
+
+is r, nil
+
+test 'count'
+
+result = $db.users.count
+total = $db.users.get.all.size
+is result, :a? => Integer
+is result, total

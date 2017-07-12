@@ -5,7 +5,7 @@ module Easymongo
     attr_accessor :result, :data, :values, :options
 
     # Init takes a Mongo::Operation::Result
-    def initialize(result, data, values, options)
+    def initialize(result, data, values = nil, options = nil)
       self.result = result
       self.data = data
       self.values = values
