@@ -53,39 +53,39 @@ module Easymongo
     end
 
     # Limit
-    def limit(n)
-      g!; s[:cursor] = cursor.limit(n.to_i); self
+    def limit(n, d = {})
+      g!(d); s[:cursor] = cursor.limit(n.to_i); self
     end
 
     # Sort
-    def sort(data)
-      g!; s[:cursor] = cursor.sort(data); self
+    def sort(data, d = {})
+      g!(d); s[:cursor] = cursor.sort(data); self
     end
 
     # Get first
-    def first
-      g!; cursor.first.tap{|r| return ed(r) if r; c!}
+    def first(d = {})
+      g!(d); cursor.first.tap{|r| return ed(r) if r; c!}
     end
 
     # Get last
-    def last
-      g!; cursor.sort(:$natural => -1).first.tap{|r| return ed(r) if r; c!}
+    def last(d = {})
+      g!(d); cursor.sort(:$natural => -1).first.tap{|r| return ed(r) if r; c!}
     end
 
     # Get all
-    def all
-      g!; cursor.to_a.map{|r| ed(r)}.tap{ c!}
+    def all(d = {})
+      g!(d); cursor.to_a.map{|r| ed(r)}.tap{ c!}
     end
 
     # Count
-    def count
-      g!; cursor.count.tap{ c!}
+    def count(d = {})
+      g!(d); cursor.count.tap{ c!}
     end
 
     # Remove
     def rm(data)
 
-      # Normalize data
+      # Optimize data
       data = ids(data)
 
       # Delete doc
@@ -95,7 +95,7 @@ module Easymongo
       Easymongo::Result.new(result, data).tap{ c!}
     end
 
-    # Make sure dataever passed works
+    # Make sure data is optimal
     def ids(data)
 
       # Just return if nothing to do
@@ -131,7 +131,7 @@ module Easymongo
     def c!; RequestStore.clear!; end
 
     # Run get if no cursor
-    def g!; get unless cursor; end
+    def g!(d = {}); get(d) unless cursor; end
 
     # Get the collection
     def coll; s[:coll]; end

@@ -38,6 +38,9 @@ test 'find'
 result = $db.users.get(id).first
 is result.name, 'suong'
 
+result = $db.users.first(id)
+is result.name, 'suong'
+
 result = $db.users.get(:_id => id).first
 is result[:name], 'suong'
 
@@ -74,6 +77,12 @@ test 'find last'
 result = $db.users.get.last
 is result.id, last.id
 
+result = $db.users.last
+is result.id, last.id
+
+result = $db.users.last(:name => 'suong')
+is result.id, last.id
+
 test 'delete'
 
 id = $db.users.set(:name => 'del').id
@@ -91,3 +100,16 @@ result = $db.users.count
 total = $db.users.get.all.size
 is result, :a? => Integer
 is result, total
+
+result = $db.users.get.count
+is result, :a? => Integer
+is result, total
+
+$db.users.set(:name => 'count')
+result = $db.users.count(:name => 'count')
+is result, :a? => Integer
+is result, 1
+
+result = $db.users.get(:name => 'count').count
+is result, :a? => Integer
+is result, 1

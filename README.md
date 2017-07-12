@@ -20,19 +20,58 @@ or add to Gemfile.
 $db = Easymongo::Query.new(['127.0.0.1:27017'], :database => "easymongo_#{ENV['RACK_ENV']}")
 
 # First
-$db.collection.get.first
+user = $db.users.get(:moon => 'animation').first
+
+# Uses dot annotation
+user.moon => 'animation'
+user.name => 'Zetetic'
+user.id => '596675a40aec08bfe7271e14'
+user.bson_id => BSON::ObjectId('596675a40aec08bfe7271e14')
+user.date => 2017-07-12 20:24:57 UTC
+user.hello = 'Wake up' => Assign temporary value
+
+# Hash annotation as well
+user[:hello] => 'Wake up'
+user.has_key?(:name) => true
+
+# All these methods work on the document
+[BSON::Document API](http://www.rubydoc.info/github/mongodb/bson-ruby/master/BSON/Document)
+
+# Very flexible, also works like this for last and count
+user = $db.users.first
+user = $db.users.first(:id => '596675a40aec08bfe7271e14')
+user = $db.users.first('596675a40aec08bfe7271e14')
+user = $db.users.first(:tv => 'propaganda')
+user = $db.users.get(:food => 'poison').first
 
 # Last
-$db.collection.get.last
+$db.users.get(:sun => 'close').last
+
+# Count
+$db.users.get(:life => 'humancentric').count
 
 # All
-$db.collection.get.all
+$db.users.all
+$db.users.get.all
+$db.users.all(:fight => 'forfreedom')
+$db.users.get(:earth => 'flat').all
 
 # Insert / Update
-$db.collection.set(:name => name)
+result = $db.users.set(:space => 'fake')
+result.date => 2017-07-12 20:24:57 UTC
+result.id => '596675a40aec08bfe7271e14'
+result.bson_id => BSON::ObjectId('596675a40aec08bfe7271e14')
+
+# Access Mongo result
+result.ok? => true
+result.n => 1
+
+# All these methods work on the result
+[Mongo::Operation::Write::Update::Result API](http://api.mongodb.com/ruby/current/Mongo/Operation/Write/Update/Result.html)
 
 # Delete
-$db.domains.delete(id)
+$db.users.rm(id)
+$db.users.rm(:satellites => 'fake')
 
 ```
 
