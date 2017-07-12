@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.summary     = "Super Easy MongoDB client"
   s.description = "The way MongoDB for Ruby should be, can't get easier than this"
   s.authors     = ["Fugroup Limited"]
-  s.email       = 'mail@fugroup.net'
+  s.email       = 'vidar@fugroup.net'
 
   s.add_runtime_dependency 'mongo', '>= 2.2'
   s.add_runtime_dependency 'activesupport', '>= 4.0'

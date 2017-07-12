@@ -1,14 +1,20 @@
 # The mongodb document
 
 module Easymongo
-
   class Document
 
     attr_accessor :doc, :values
 
     # Takes a BSON::Document
     def initialize(doc)
-      doc['id'] = doc.delete('_id').to_s
+
+      # Replace _id with id
+      doc['id'] = doc.delete('_id')
+
+      # Convert all BSON::ObjectId to string
+      doc.each{|k, v| doc[k] = v.to_s if v.is_a?(BSON::ObjectId)}
+
+      # Symbolize keys
       self.doc = doc.symbolize_keys
     end
 
@@ -32,7 +38,8 @@ module Easymongo
       doc[key.to_sym] = value
     end
 
-    # For the mongo doc
+    # Make the doc user friendly with dot notation
+    # Provides access to doc object methods too
     def method_missing(name, *args, &block)
 
       # Write value
@@ -41,9 +48,8 @@ module Easymongo
       # Read value
       return doc[name] if doc.has_key?(name)
 
-      # Run method on doc
+      # Run method on doc object
       return doc.send(name, *args) if doc.respond_to?(name)
-
     end
 
   end

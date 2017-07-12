@@ -1,5 +1,4 @@
 module Easymongo
-
   class Result
 
     attr_accessor :result, :data, :values, :options
