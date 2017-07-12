@@ -41,8 +41,8 @@ http://www.rubydoc.info/github/mongodb/bson-ruby/master/BSON/Document
 user = $db.users.first
 user = $db.users.first(:id => '596675a40aec08bfe7271e14')
 user = $db.users.first('596675a40aec08bfe7271e14')
-user = $db.users.first(:tv => 'propaganda')
-user = $db.users.get(:food => 'poison').first
+user = $db.users.first(:tv => 'tull')
+user = $db.users.get(:food => 'healthy').first
 
 # Last
 $db.users.get(:sun => 'close').last
@@ -53,11 +53,11 @@ $db.users.get(:life => 'humancentric').count
 # All
 $db.users.all
 $db.users.get.all
-$db.users.all(:fight => 'forfreedom')
-$db.users.get(:earth => 'flat').all
+$db.users.all(:spread => 'knowledge')
+$db.users.get(:earth => 'beautiful').all
 
 # Insert / Update
-result = $db.users.set(:space => 'fake')
+result = $db.users.set(:space => 'unreal')
 result.date => 2017-07-12 20:24:57 UTC
 result.id => '596675a40aec08bfe7271e14'
 result.bson_id => BSON::ObjectId('596675a40aec08bfe7271e14')
@@ -66,12 +66,12 @@ result.bson_id => BSON::ObjectId('596675a40aec08bfe7271e14')
 result.ok? => true
 result.n => 1
 
-# All these methods work on the result:
+# All these methods work on the result
 http://api.mongodb.com/ruby/current/Mongo/Operation/Write/Update/Result.html
 
 # Delete
-$db.users.rm(id)
-$db.users.rm(:satellites => 'fake')
+$db.users.rm('596675a40aec08bfe7271e14')
+$db.users.rm(:satellites => 'fragile')
 
 ```
 
