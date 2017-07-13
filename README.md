@@ -30,13 +30,6 @@ user.bson_id => BSON::ObjectId('596675a40aec08bfe7271e14')
 user.date => 2017-07-12 20:24:57 UTC
 user.hello = 'Wake up' => Assign temporary value
 
-# Hash annotation as well
-user[:hello] => 'Wake up'
-user.has_key?(:name) => true
-
-# All these methods work on the document
-http://www.rubydoc.info/github/mongodb/bson-ruby/master/BSON/Document
-
 # Very flexible, also works like this for last and count
 user = $db.users.first
 user = $db.users.first(:id => '596675a40aec08bfe7271e14')
