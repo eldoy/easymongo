@@ -42,27 +42,27 @@ result = $db.users.first(id)
 is result.name, 'suong'
 
 result = $db.users.get(:_id => id).first
-is result[:name], 'suong'
+is result.name, 'suong'
 
 result = $db.users.get('_id' => id).first
-is result[:name], 'suong'
+is result.name, 'suong'
 
 result = $db.users.get('id' => id).first
-is result[:name], 'suong'
+is result.name, 'suong'
 
 result = $db.users.get(:name => 'suong').first
-is result[:name], 'suong'
+is result.name, 'suong'
 
 
 test 'find all'
 
 result = $db.users.get(:name => 'suong').all
 is result, :a? => Array
-is result.first[:name], 'suong'
+is result.first.name, 'suong'
 
 result = $db.users.get.all
 is result, :a? => Array
-is result.first[:name], 'suong'
+is result.first.name, 'suong'
 
 # Setup for first and last
 first, last = result[0], result[-1]
