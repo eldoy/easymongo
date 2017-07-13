@@ -1,19 +1,16 @@
 module Easymongo
   class Result
 
-    attr_accessor :result, :data, :values, :options
+    attr_reader :result
 
     # Init takes a Mongo::Operation::Result
-    def initialize(result, data, values = nil, options = nil)
-      self.result = result
-      self.data = data
-      self.values = values
-      self.options = options
+    def initialize(result)
+      @result = result
     end
 
     # Get the id as BSON::ObjectId
     def bson_id
-      result.upserted_id || data['_id']
+      result.upserted_id rescue nil
     end
 
     # Get the id if available

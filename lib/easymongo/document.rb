@@ -14,6 +14,7 @@ module Easymongo
 
       # Write variables
       doc.each{|k, v| attr(k, v)}
+
     end
 
     # Get bson id
@@ -23,7 +24,7 @@ module Easymongo
 
     # Creation date
     def date
-      bson_id.generation_time
+      bson_id.generation_time rescue nil
     end
 
     # Dynamically write value

@@ -2,8 +2,7 @@ require 'mongo'
 
 module Easymongo
 
-  # # # # # #
-  # Easymongo MongoDB tiny Ruby library.
+  # Easymongo MongoDB super easy Ruby library.
   # @homepage: https://github.com/fugroup/easymongo
   # @author:   Vidar <vidar@fugroup.net>, Fugroup Ltd.
   # @license:  MIT, contributions are welcome.

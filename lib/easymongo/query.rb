@@ -1,6 +1,5 @@
 # This is the easiest possible implementation of a mongodb client.
 # We got rid of the ObjectID and the underscore, and made mongodb super easy to use.
-# Use BSON::ObjectId.new.generation_time as timestamp if you need that
 #
 # If you need something close to pure Mongo, check out https://github.com/fugroup/minimongo
 # If you need models for Easymongo, check out https://github.com/fugroup/modelize
@@ -23,7 +22,7 @@ module Easymongo
 
     # Set up collection, stored in the thread
     def method_missing(name, *args, &block)
-      s[:coll] = name; self
+      c!; s[:coll] = name; self
     end
 
     # Set values
@@ -44,7 +43,7 @@ module Easymongo
       result = client[coll].update_one(data, options, :upsert => true)
 
       # Return result
-      Easymongo::Result.new(result, data, values, options)
+      Easymongo::Result.new(result)
     end
 
     # Get values, store cursor in thread
@@ -92,7 +91,7 @@ module Easymongo
       result = client[coll].delete_one(data)
 
       # Return result
-      Easymongo::Result.new(result, data).tap{ c!}
+      Easymongo::Result.new(result).tap{ c!}
     end
 
     # Make sure data is optimal
