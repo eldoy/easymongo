@@ -1,3 +1,8 @@
+**Version 0.0.4** - *2017-07-13*
+
+- Simplified result
+
+
 **Version 0.0.3** - *2017-07-13*
 
 - Fixed JSON issues
