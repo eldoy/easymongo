@@ -98,10 +98,10 @@ module Easymongo
     def ids(data)
 
       # Just return if nothing to do
-      return data if data.empty?
+      return data if data and data.empty?
 
       # Support passing id as string
-      data = {'_id' => data} if data.is_a?(String)
+      data = {'_id' => data} if !data or data.is_a?(String)
 
       # Turn all keys to string
       data = data.stringify_keys

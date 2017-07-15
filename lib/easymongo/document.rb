@@ -14,7 +14,6 @@ module Easymongo
 
       # Write variables
       doc.each{|k, v| attr(k, v)}
-
     end
 
     # Get bson id

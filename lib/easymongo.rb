@@ -6,9 +6,8 @@ module Easymongo
   # @homepage: https://github.com/fugroup/easymongo
   # @author:   Vidar <vidar@fugroup.net>, Fugroup Ltd.
   # @license:  MIT, contributions are welcome.
-  # # # # # #
 
-  class << self; attr_accessor :db; end
+  class << self; attr_accessor :schema; end
 end
 
 require_relative 'easymongo/document'

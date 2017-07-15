@@ -53,6 +53,9 @@ is result.name, 'suong'
 result = $db.users.get(:name => 'suong').first
 is result.name, 'suong'
 
+result = $db.users.get(nil).first
+is result, nil
+
 
 test 'find all'
 
