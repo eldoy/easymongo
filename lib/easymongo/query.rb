@@ -56,6 +56,16 @@ module Easymongo
       g!(d); s[:cursor] = cursor.limit(n.to_i); self
     end
 
+    # Skip
+    def skip(n, d = {})
+      g!(d); s[:cursor] = cursor.skip(n.to_i); self
+    end
+
+    # Fields
+    def fields(data, d = {})
+      g!(d); s[:cursor] = cursor.projection(data); self
+    end
+
     # Sort
     def sort(data, d = {})
       g!(d); s[:cursor] = cursor.sort(data); self
