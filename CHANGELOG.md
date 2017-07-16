@@ -1,3 +1,8 @@
+**Version 0.0.5** - *2017-07-16*
+
+- Added projection and skip
+
+
 **Version 0.0.4** - *2017-07-13*
 
 - Simplified result
