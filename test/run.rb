@@ -9,6 +9,7 @@ $db.client[:users].drop
 begin
   start = Time.now
   [
+    'features',
     'query',
     'access'
   ].each{|t| require_relative "#{t}_test"}

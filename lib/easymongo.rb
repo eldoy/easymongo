@@ -7,7 +7,6 @@ module Easymongo
   # @author:   Vidar <vidar@fugroup.net>, Fugroup Ltd.
   # @license:  MIT, contributions are welcome.
 
-  class << self; attr_accessor :schema; end
 end
 
 require_relative 'easymongo/document'

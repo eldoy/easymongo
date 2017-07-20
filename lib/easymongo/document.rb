@@ -13,7 +13,18 @@ module Easymongo
       doc.each{|k, v| doc[k] = v.to_s if v.is_a?(BSON::ObjectId)}
 
       # Write variables
-      doc.each{|k, v| attr(k, v)}
+      # doc.each{|k, v| attr(k, v)}
+      self.attributes = doc
+    end
+
+    # Get attributes as hash
+    def attributes
+      Hash[instance_variables.map{|r| [r[1..-1].to_sym, instance_variable_get(r)]}]
+    end
+
+    # Set attributes
+    def attributes=(data)
+      data.each{|k, v| attr(k, v)}
     end
 
     # Get bson id
