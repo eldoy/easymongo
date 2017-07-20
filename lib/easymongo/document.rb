@@ -4,7 +4,7 @@ module Easymongo
   class Document
 
     # Takes a BSON::Document
-    def initialize(doc)
+    def initialize(doc = {})
 
       # Replace _id with id
       doc['id'] = doc.delete('_id')
@@ -39,7 +39,7 @@ module Easymongo
 
     # Dynamically write value
     def method_missing(name, *args, &block)
-      return attr(name[0..-2], args.first) if args.size == 1 and name[-1] == '='
+      return attr(name[0..-2], args[0]) if args.size == 1 and name[-1] == '='
     end
 
     private
