@@ -1,3 +1,8 @@
+**Version 0.0.6** - *2017-07-20*
+
+- Added projection and skip
+
+
 **Version 0.0.5** - *2017-07-16*
 
 - Added projection and skip
