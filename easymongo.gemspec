@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'easymongo'
-  s.version     = '0.0.6'
-  s.date        = '2017-07-20'
+  s.version     = '0.0.8'
+  s.date        = '2017-07-25'
   s.summary     = "Super Easy MongoDB client"
   s.description = "The way MongoDB for Ruby should be, can't get easier than this"
   s.authors     = ["Fugroup Limited"]

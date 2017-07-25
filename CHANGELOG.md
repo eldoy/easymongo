@@ -1,6 +1,11 @@
+**Version 0.0.8** - *2017-07-25*
+
+- Added defaults
+
+
 **Version 0.0.6** - *2017-07-20*
 
-- Added projection and skip
+- Added attributes
 
 
 **Version 0.0.5** - *2017-07-16*

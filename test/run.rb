@@ -9,9 +9,9 @@ $db.client[:users].drop
 begin
   start = Time.now
   [
-    'features',
     'query',
-    'access'
+    'access',
+    'features'
   ].each{|t| require_relative "#{t}_test"}
 rescue => x
   puts x.message

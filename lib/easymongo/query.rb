@@ -113,6 +113,9 @@ module Easymongo
       # Support passing id as string
       data = {'_id' => data} if !data or data.is_a?(String)
 
+      # Merge in defaults
+      data = defaults.merge(data)
+
       # Turn all keys to string
       data = data.stringify_keys
 
@@ -131,13 +134,23 @@ module Easymongo
       return BSON::ObjectId.new if v.nil?; BSON::ObjectId.from_string(v) rescue v
     end
 
+    # Set temporary defaults. Useful for logged in users.
+    def defaults=(val)
+      s[:defaults] = val
+    end
+
+    # Get defaults
+    def defaults
+      s[:defaults] || {}
+    end
+
     private
 
     # Get the request store
     def s; RequestStore.store; end
 
     # Clear request store
-    def c!; RequestStore.clear!; end
+    def c!; s[:cursor] = s[:coll] = nil; end
 
     # Run get if no cursor
     def g!(d = {}); get(d) unless cursor; end
