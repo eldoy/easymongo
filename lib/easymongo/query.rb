@@ -141,7 +141,7 @@ module Easymongo
     def s; RequestStore.store; end
 
     # Clear request store
-    def c!; s[:cursor] = s[:coll] = nil; end
+    def c!; s[:cursor] = nil; s[:coll] = nil; end
 
     # Run get if no cursor
     def g!(d = {}); get(d) unless cursor; end
