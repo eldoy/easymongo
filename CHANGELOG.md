@@ -1,6 +1,6 @@
-**Version 0.0.8** - *2017-07-25*
+**Version 0.0.9** - *2017-07-26*
 
-- Added defaults
+- Normalizing values on set
 
 
 **Version 0.0.6** - *2017-07-20*

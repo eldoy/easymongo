@@ -31,13 +31,13 @@ module Easymongo
       # Insert, add oid
       data, values = args.size == 1 ? [{'_id' => oid}, *args] : args
 
+      # Normalize attributes
+      data, values = ids(data), ids(values)
+
       # Using set and unset so we don't store nil in the db
       options = {
         :$set => values.select{|k, v| !v.nil?}, :$unset => values.select{|k, v| v.nil?}
       }.delete_if{|k, v| v.empty?}
-
-      # Normalize data
-      data = ids(data)
 
       # Update the collection
       result = client[coll].update_one(data, options, :upsert => true)
@@ -113,9 +113,6 @@ module Easymongo
       # Support passing id as string
       data = {'_id' => data} if !data or data.is_a?(String)
 
-      # Merge in defaults
-      data = defaults.merge(data)
-
       # Turn all keys to string
       data = data.stringify_keys
 
@@ -123,7 +120,11 @@ module Easymongo
       data['_id'] = data.delete('id') if data['id']
 
       # Convert ids to BSON ObjectId
-      data.each{|k, v| data[k] = oid(v) if v.is_a?(String) and v =~ /^[0-9a-fA-F]{24}$/}
+      data.each do |k, v|
+        if v.is_a?(String) and v =~ /^[0-9a-fA-F]{24}$/
+          data[k] = oid(v)
+        end
+      end
 
       # Return data
       data
@@ -132,16 +133,6 @@ module Easymongo
     # Convert to BSON ObjectId or make a new one
     def oid(v = nil)
       return BSON::ObjectId.new if v.nil?; BSON::ObjectId.from_string(v) rescue v
-    end
-
-    # Set temporary defaults. Useful for logged in users.
-    def defaults=(val)
-      s[:defaults] = val
-    end
-
-    # Get defaults
-    def defaults
-      s[:defaults] || {}
     end
 
     private
