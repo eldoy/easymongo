@@ -119,13 +119,15 @@ is result, 1
 
 test 'ne'
 
+count = $db.users.count
+is count > 1
+
 r = $db.users.first
-result = $db.users.get(:id => {:ne => r.id}).first
+result = $db.users.get(:id => {:$ne => r.id}).first
+is result, :ne => nil
 
-is result, nil
+result = $db.users.first(:id => {:$ne => r.id})
+is result, :ne => nil
 
-result = $db.users.first(:id => {:ne => r.id})
-is result, nil
-
-result = $db.users.first(:id => {:ne => BSON::ObjectId.from_string(r.id)})
-is result, nil
+result = $db.users.first(:id => {:$ne => BSON::ObjectId.from_string(r.id)})
+is result, :ne => nil
