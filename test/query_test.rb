@@ -116,3 +116,16 @@ is result, 1
 result = $db.users.get(:name => 'count').count
 is result, :a? => Integer
 is result, 1
+
+test 'ne'
+
+r = $db.users.first
+result = $db.users.get(:id => {:ne => r.id}).first
+
+is result, nil
+
+result = $db.users.first(:id => {:ne => r.id})
+is result, nil
+
+result = $db.users.first(:id => {:ne => BSON::ObjectId.from_string(r.id)})
+is result, nil
